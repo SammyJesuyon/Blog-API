@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import (BlogTagView, BlogCommentView, BlogView, )
+from .views import (BlogTagView, BlogCommentView, BlogView, TopBlogs, SimilarBlogs, )
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -11,4 +11,6 @@ router.register('blog-comments', BlogCommentView)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('top-blogs', TopBlogs.as_view()),
+    path('similar-blogs/<int:blog_id>', SimilarBlogs.as_view())
 ]

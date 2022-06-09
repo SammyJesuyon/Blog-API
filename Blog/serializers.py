@@ -16,10 +16,14 @@ class BlogSerializer(serializers.ModelSerializer):
     # to be able to tell who the author of this serializer is;
     author = UserSerializer(read_only=True)
     author_id = serializers.IntegerField(write_only=True)
+    comment_count = serializers.SerializerMethodField('get_comment_count')
 
     class Meta:
         model = Blog
         fields = '__all__'
+
+    def get_comment_count(self, obj):
+        return obj.blog_comments.count()
 
 
 class BlogCommentSerializer(serializers.ModelSerializer):
