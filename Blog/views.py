@@ -23,7 +23,8 @@ class BlogView(ModelViewSet):
                 Q(title__iexact=keyword) |
                 Q(tags__title__icontains=keyword) |
                 Q(tags__title__iexact=keyword)
-            )
+            ).distinct()  # distinct was added so the search return just one distinct result for a search as the search
+            # tends to return multiple of instances of a result because of the use | above
         return query_data
 
 
